@@ -14,7 +14,6 @@
           <th>Lastname</th>
           <th>Firstname</th>
           <th>Email</th>
-          <th>Phone</th>
           <th>Action</th>
       </thead>
       <tbody>
@@ -24,7 +23,6 @@
       <td>{{ voter.admin.last_name }}</td>
       <td>{{ voter.admin.first_name }}</td>
       <td>{{ voter.admin.email }}</td>
-      <td>{{ voter.phone }}</td>
       
       <td>
         <button class='btn btn-success btn-sm edit btn-flat' data-id='{{ voter.id }}'><i class='fa fa-edit'></i> Edit</button>
@@ -114,13 +112,6 @@
                   <input type="email" class="form-control" id="edit_email" name="email">
                 </div>
             </div>
-            <div class="form-group">
-              <label for="edit_phone" class="col-sm-3 control-label">Phone</label>
-
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="edit_phone" name="phone">
-              </div>
-          </div> 
 
 
           </div>
@@ -197,7 +188,6 @@
               $('.id').val(response.id);
               $('#edit_firstname').val(response.first_name);
               $('#edit_lastname').val(response.last_name);
-              $('#edit_phone').val(response.phone);
               $('#edit_email').val(response.email);
               $('.fullname').html(response.first_name + ' ' + response.last_name);
           }

@@ -1,5 +1,5 @@
 Django
-mysql-connector-python 
+psycopg2-binary
 Pillow
 django-renderpdf
 requests

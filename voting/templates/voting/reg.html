@@ -21,14 +21,6 @@
                     </div>
                     {% endfor %}
 
-                    {% for field in form2  %}
-                    <div class="form-group has-feedback">
-                        <span class="text-danger">{{field.errors}}</span>
-                        {{field.label_tag}}
-                        {{field}}
-                    </div>
-                    {% endfor %}
-
 
                
 
@@ -64,14 +56,6 @@
                     </div>
                     <div class="modal-body">
                         {% for field in form1  %}
-                        <div class="form-group has-feedback">
-                            {{field.errors}}
-                            {{field.label_tag}}
-                            {{field}}
-                        </div>
-                        {% endfor %}
-
-                        {% for field in form2  %}
                         <div class="form-group has-feedback">
                             {{field.errors}}
                             {{field.label_tag}}

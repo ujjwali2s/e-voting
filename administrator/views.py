@@ -7,7 +7,16 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 import json  # Not used
-from django_renderpdf.views import PDFView
+try:
+    from django_renderpdf.views import PDFView
+    WEASYPRINT_AVAILABLE = True
+except (OSError, ImportError):
+    # WeasyPrint requires GTK/Pango system libraries (libgobject-2.0-0)
+    # which may not be installed on all systems (especially Windows without GTK3).
+    # PDF printing will be unavailable but all other features will work.
+    from django.views import View as PDFView
+    WEASYPRINT_AVAILABLE = False
+
 
 
 def find_n_winners(data, n):
@@ -157,7 +166,6 @@ def view_voter_by_id(request):
         voter = voter[0]
         context['first_name'] = voter.admin.first_name
         context['last_name'] = voter.admin.last_name
-        context['phone'] = voter.phone
         context['id'] = voter.id
         context['email'] = voter.admin.email
     return JsonResponse(context)
@@ -388,6 +396,6 @@ def viewVotes(request):
 
 def resetVote(request):
     Votes.objects.all().delete()
-    Voter.objects.all().update(voted=False, verified=False, otp=None)
+    Voter.objects.all().update(voted=False)
     messages.success(request, "All votes has been reset")
     return redirect(reverse('viewVotes'))

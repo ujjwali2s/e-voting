@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, reverse
 from .email_backend import EmailBackend
 from django.contrib import messages
 from .forms import CustomUserForm
-from voting.forms import VoterForm
 from django.contrib.auth import login, logout
 # Create your views here.
 
@@ -33,24 +32,21 @@ def account_login(request):
 
 def account_register(request):
     userForm = CustomUserForm(request.POST or None)
-    voterForm = VoterForm(request.POST or None)
     context = {
         'form1': userForm,
-        'form2': voterForm
     }
     if request.method == 'POST':
-        if userForm.is_valid() and voterForm.is_valid():
-            user = userForm.save(commit=False)
-            voter = voterForm.save(commit=False)
-            voter.admin = user
-            user.save()
-            voter.save()
+        if userForm.is_valid():
+            user = userForm.save()
+            # Auto-create associated Voter record
+            from voting.models import Voter
+            Voter.objects.create(admin=user)
             messages.success(request, "Account created. You can login now!")
             return redirect(reverse('account_login'))
         else:
             messages.error(request, "Provided data failed validation")
-            # return account_login(request)
     return render(request, "voting/reg.html", context)
+
 
 
 def account_logout(request):

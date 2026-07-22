@@ -81,13 +81,29 @@ WSGI_APPLICATION = 'e_voting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# ============================================================
+# E-Voting System — Internship Project
+# Developed by: Ravi Ranjan Kumar
+# ============================================================
+
 DATABASES = {
-    #   You can use this :
+    # PostgreSQL (local) — active
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'evoting_db',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
     }
 
+    # SQLite (fallback) — commented out
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    # MySQL (original reference) — commented out
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'e_voting',
@@ -122,6 +138,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -148,5 +166,3 @@ AUTHENTICATION_BACKENDS = ['account.email_backend.EmailBackend']
 
 ELECTION_TITLE_PATH = os.path.join(
     BASE_DIR, 'election_title.txt')  # Election Title File
-
-SEND_OTP = True  # If you toggle this to False, Kindly use 0000 as your OTP
