@@ -1,12 +1,10 @@
 from django.shortcuts import render, reverse, redirect
 from voting.models import Voter, Position, Candidate, Votes
-from account.models import CustomUser
 from account.forms import CustomUserForm
-from voting.forms import *
+from voting.forms import VoterForm, PositionForm, CandidateForm
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.conf import settings
-import json  # Not used
 try:
     from django_renderpdf.views import PDFView
     WEASYPRINT_AVAILABLE = True

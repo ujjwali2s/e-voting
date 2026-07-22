@@ -11,7 +11,6 @@ class AccountCheckMiddleWare(MiddlewareMixin):
         if user.is_authenticated:
             if user.user_type == '1':  # Admin
                 if modulename == 'voting.views':
-                    error = True
                     if request.path == reverse('fetch_ballot'):
                         pass
                     else:
