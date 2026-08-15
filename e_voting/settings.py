@@ -87,30 +87,17 @@ WSGI_APPLICATION = 'e_voting.wsgi.application'
 # ============================================================
 
 DATABASES = {
-    # PostgreSQL (local) — active
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'evoting_db',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
+        'NAME': os.getenv('DB_NAME', 'evoting_db_2xky'),
+        'USER': os.getenv('DB_USER', 'evoting_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'PkxCPqq9zZg4VEb8zUVv1RGZHlyNUy4U'),
+        'HOST': os.getenv('DB_HOST', 'dpg-da00t9tbedkc739klqg0-a.oregon-postgres.render.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': os.getenv('DB_SSLMODE', 'require'),
+        }
     }
-
-    # SQLite (fallback) — commented out
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-
-    # MySQL (original reference) — commented out
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'e_voting',
-    #     'HOST': '127.0.0.1',
-    #     'USER': 'root',
-    #     'PASSWORD': ''
-    # }
 }
 
 
